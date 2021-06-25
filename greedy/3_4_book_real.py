@@ -19,3 +19,5 @@ while True:
 # 마지막으로 남은 수에 대하여 1씩 빼기
 result += (n-1)
 print(result)
+
+# 간단한 방법보다 시간복잡도가 작아짐 -> log(N)

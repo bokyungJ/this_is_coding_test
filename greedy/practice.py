@@ -1,19 +1,42 @@
-n = int(input())
-plans = input().split()
-x, y = 1,1
+n, m = map(int, input().split())
 
-# L R U D
-dx = [0,0,-1,1]
-dy = [-1,1,0,0]
-moves = ['L','R','U','D']
+d = [[0]*m for _ in range(n)]
+x, y, direction = map(int, input().split())
+d[x][y]=1
 
-for plan in plans:
-    for i in range(4):
-        if plan == moves[i]:
-            nx = x+dx[i]
-            ny = y+dy[i]
-    if nx <1 or ny < 1 or nx>n or ny>n:
-        continue
+array = []
+for i in range(n):
+    array.append(list(map(int, input().split())))
+
+dx = [-1, 0 ,1, 0]
+dy = [0,1,0,-1]
+
+def turn_left():
+    global direction
+    direction -=1
+    if direction == -1:
+        direction = 3
     
-    x, y = nx, ny
-print(x, y)
+count = 1
+turn_time = 0
+while True:
+    turn_left()
+    nx = x+dx[direction]
+    ny = y+dy[direction]
+    if d[nx][ny]== 0 and array[nx][ny]==0:
+        d[nx][ny] = 1
+        x = nx
+        y = ny
+        count +=1
+        turn_time = 0
+        continue
+    else:
+        turn_time+=1
+    if turn_time==4:
+        nx = x-dx[direction]
+        ny = x-dx[direction]
+        if array[nx][ny]==0:
+            x = nx
+            y = ny
+        else:
+            break
